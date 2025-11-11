@@ -1,9 +1,19 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { Videos } from "../data";
+import { Videos } from "../../data"
 import { notFound } from "next/navigation";
 
 
+export async function generateStaticParams() {
+    const videos = Videos
+
+    const result = videos.map(video => (
+        { videoId: video.id }
+    ))
+
+    console.log(result)
+    return result
+}
 
 export default async function Page(props: { params: Promise<{ videoId: string }> }) {
 
@@ -22,7 +32,7 @@ export default async function Page(props: { params: Promise<{ videoId: string }>
                 <ul className="list-disc list-inside">
                     {video?.lessons.map((lesson) => {
                         return <li key={lesson.title} className="">
-                            <Link href={`/formations/${video.id}/lessons/${lesson.lessonId}`} className="text-indigo-500 underline">{lesson.title}</Link>
+                            <Link href={`/formations/videos/${video.id}/lessons/${lesson.lessonId}`} className="text-indigo-500 underline">{lesson.title}</Link>
                         </li>
                     })}
                 </ul>

@@ -12,7 +12,7 @@ export default function Page() {
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
                 {Videos.map((video) => {
-                    return <Link key={video.id} href={`/formations/${video.id}`} className="text-indigo-500 underline">{video.title}</Link>
+                    return <Link key={video.id} href={`/formations/videos/${video.id}`} className="text-indigo-500 underline">{video.title}</Link>
                 })}
             </CardContent>
         </Card>

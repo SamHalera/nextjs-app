@@ -1,6 +1,5 @@
 
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link"
 
 export default async function Loading() {
@@ -12,7 +11,7 @@ export default async function Loading() {
         <Card>
             <CardHeader>
                 <CardTitle>404</CardTitle>
-                <CardDescription>Lesson not founnd</CardDescription>
+                <CardDescription>Video not founnd</CardDescription>
             </CardHeader>
             <CardFooter>
                 <Link href={`/formations`}>Back to formations</Link>
