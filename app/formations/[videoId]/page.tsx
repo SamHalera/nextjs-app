@@ -1,6 +1,7 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Videos } from "../data";
+import { notFound } from "next/navigation";
 
 
 
@@ -9,7 +10,7 @@ export default async function Page(props: { params: Promise<{ videoId: string }>
     const params = await props.params
     const video = Videos.find(elt => elt.id === params.videoId)
     if (!video) {
-        return <p>Invalid video</p>
+        notFound()
     }
     return <div className="flex flex-col p-4 gap-4 max-w-md mx-auto min-h-full border-x">
 

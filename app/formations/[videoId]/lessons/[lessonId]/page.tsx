@@ -1,6 +1,7 @@
 import { Videos } from "@/app/formations/data"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
 export default async function Page(props: { params: Promise<{ videoId: string, lessonId: string }> }) {
 
@@ -9,9 +10,10 @@ export default async function Page(props: { params: Promise<{ videoId: string, l
     const video = Videos.find(elt => elt.id === videoId)
     const lesson = video?.lessons.find(lesson => lesson.lessonId === lessonId)
 
+    //Simulate delay of loading
+    await new Promise((resolve) => setTimeout(resolve, 500))
     if (!video || !lesson) {
-        throw new Error('Invalid Lesson')
-        return <p>Invalid {!video ? "video" : "lesson"}</p>
+        notFound()
     }
     return <div className="flex flex-col p-4 gap-4 max-w-md mx-auto min-h-full border-x">
 
