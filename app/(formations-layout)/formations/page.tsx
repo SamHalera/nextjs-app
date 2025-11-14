@@ -1,7 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Videos } from "./data";
-import { Divide } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Plan de Formations"
+}
 
 export default function Page() {
     return <div className="flex flex-col p-4 gap-4 max-w-md mx-auto min-h-full border-x">

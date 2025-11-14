@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import Link from "next/link";
 import { Videos } from "../../data"
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 
 export async function generateStaticParams() {
@@ -14,8 +15,19 @@ export async function generateStaticParams() {
     console.log(result)
     return result
 }
+type PageProps = {
+    params: Promise<{ videoId: string }>,
+}
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
 
-export default async function Page(props: { params: Promise<{ videoId: string }> }) {
+    const params = await props.params
+    const video = Videos.find(elt => elt.id === params.videoId)
+    return {
+        title: `Video | ${video?.title}`
+    }
+}
+
+export default async function Page(props: PageProps) {
 
     const params = await props.params
     const video = Videos.find(elt => elt.id === params.videoId)

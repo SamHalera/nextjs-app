@@ -1,5 +1,6 @@
-import { Videos } from "@/app/formations/data"
+import { Videos } from "@/app/(formations-layout)/formations/data"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -19,8 +20,20 @@ export async function generateStaticParams() {
     return result
 }
 
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
 
-export default async function Page(props: { params: Promise<{ videoId: string, lessonId: string }> }) {
+    const { videoId, lessonId } = await props.params
+    const video = Videos.find(elt => elt.id === videoId)
+    const lesson = video?.lessons.find(lesson => lesson.lessonId === lessonId)
+
+    return {
+        title: `Lesson ${lesson?.title} from Video ${video?.title}`
+    }
+}
+type PageProps = {
+    params: Promise<{ videoId: string, lessonId: string }>
+}
+export default async function Page(props: PageProps) {
 
     const { videoId, lessonId } = await props.params
 
