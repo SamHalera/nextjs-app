@@ -7,7 +7,9 @@ import { headers } from "next/headers";
 import ServerComponent from "@/components/serverrComponent";
 import { use } from "react";
 
-
+type UserProps = {
+    name: string
+}
 
 export default async function Page() {
     const userAgentQ = userAgent({
@@ -30,7 +32,7 @@ export default async function Page() {
                     <ServerComponent />
                 </Counter>
                 <ul className="list-disc list-inside">
-                    {users.map(user => <li key={user.name}>{user.name}</li>)}
+                    {users.map((user: UserProps) => <li key={user.name}>{user.name}</li>)}
                 </ul>
             </CardHeader>
 
