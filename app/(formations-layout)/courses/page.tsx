@@ -5,11 +5,12 @@ import { userAgent } from "next/server";
 import Counter from "./counter";
 import { headers } from "next/headers";
 import ServerComponent from "@/components/serverrComponent";
-import { use } from "react";
+import { Suspense, use } from "react";
 import { prisma } from "@/lib/prisma";
 import { Star } from "lucide-react";
 import { SelectStar } from "@/components/select-star";
 import { revalidatePath } from "next/cache";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type ReviewsProps = {
     id: string,
@@ -62,6 +63,12 @@ export default async function Page() {
                                     <p>{review.review}</p>
                                 </CardContent>
 
+                                <Card>
+                                    <Suspense fallback={<Skeleton className="w-full h-10" />}>
+                                        <LongLoadingComponent />
+                                    </Suspense>
+                                </Card>
+
                             </Card>
                         )
                     })}
@@ -73,13 +80,11 @@ export default async function Page() {
 }
 
 
-const starsReview = (starNb: number) => {
 
-    let counter = 0;
-    let starsHTML = ""
-    while (counter < starNb) {
-        starsHTML += <Star className="h-4 w-4 text-yellow-500" />
-        counter++
-    }
-    return starsHTML
+
+const LongLoadingComponent = async () => {
+    const reviews = await prisma.review.count()
+    await new Promise((r) => setTimeout(r, 4000))
+    return <p>{reviews}</p>
+
 }

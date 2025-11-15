@@ -40,3 +40,4 @@ export const SelectStar = (props: { star: number, setNewStar: (star: number) => 
     )
 
 }
+
