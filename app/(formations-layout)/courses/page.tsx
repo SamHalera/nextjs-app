@@ -11,6 +11,7 @@ import { Star } from "lucide-react";
 import { SelectStar } from "@/components/select-star";
 import { revalidatePath } from "next/cache";
 import { Skeleton } from "@/components/ui/skeleton";
+import { UpdateTitleForm } from "./edit-title";
 
 type ReviewsProps = {
     id: string,
@@ -26,7 +27,11 @@ export default async function Page() {
         headers: await headers()
     });
 
-    const reviews = await prisma.review.findMany();
+    const reviews = await prisma.review.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
 
     //function executed on server side
     const setNewStar = async (reviewsId: string, star: number) => {
@@ -36,6 +41,24 @@ export default async function Page() {
             where: { id: reviewsId },
             data: {
                 star
+            }
+        })
+        revalidatePath('/courses')
+    }
+    //function executed on server side
+    const setReviewName = async (reviewsId: string, name: string) => {
+        "use server"
+        await new Promise((r) => setTimeout(r, 1000))
+
+        if (name === "error") {
+            revalidatePath("/courses")
+            return
+        }
+        console.log("hey")
+        await prisma.review.update({
+            where: { id: reviewsId },
+            data: {
+                name
             }
         })
         revalidatePath('/courses')
@@ -54,20 +77,22 @@ export default async function Page() {
                         return (
                             <Card key={review.id}>
                                 <CardHeader>
-                                    <CardTitle>{review.name}</CardTitle>
                                     <div className="flex gap-2 items-center">
                                         <SelectStar setNewStar={setNewStar.bind(null, review.id)} star={review.star} />
                                     </div>
+                                    <UpdateTitleForm className="txt-lg font-bold" setReviewName={setReviewName.bind(null, review.id)}>
+                                        {review.name}
+                                    </UpdateTitleForm>
                                 </CardHeader>
                                 <CardContent>
                                     <p>{review.review}</p>
                                 </CardContent>
 
-                                <Card>
+                                {/* <Card>
                                     <Suspense fallback={<Skeleton className="w-full h-10" />}>
                                         <LongLoadingComponent />
                                     </Suspense>
-                                </Card>
+                                </Card> */}
 
                             </Card>
                         )
