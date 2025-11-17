@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { Check, Edit } from "lucide-react"
 import { useOptimistic, useRef, useState, useTransition } from "react"
 
-export const UpdateTitleForm = (props: { children: string, setReviewName: (newName: string) => void, className: string }) => {
+export const UpdateTitleForm = (props: { children: string, setReviewName?: (newName: string) => void, className: string }) => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const ref = useRef<HTMLInputElement>(null)
 
@@ -25,7 +25,7 @@ export const UpdateTitleForm = (props: { children: string, setReviewName: (newNa
                 <button onClick={() => {
                     setIsEditing(false)
                     const newName = ref.current?.value ?? ""
-                    props.setReviewName(newName)
+                    props.setReviewName?.(newName)
                     startTransition(() => {
                         setTitle(newName)
                     })
