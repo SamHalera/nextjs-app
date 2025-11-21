@@ -1,0 +1,5 @@
+NEXT SAFE ACTION
+
+install 
+
+==> npm i next-safe-action zod
