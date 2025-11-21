@@ -1,5 +1,16 @@
-NEXT SAFE ACTION
+NEXT SAFE ACTION : https://next-safe-action.dev/docs/getting-started
 
 install 
 
 ==> npm i next-safe-action zod
+
+
+APP ROUTE WITH NEXT : https://nextjs.org/docs/app/getting-started/route-handlers
+
+
+1) Recupérer des données :  Fetch avec API ROUTE ou SERVER COMPONENT
+2) Mutations :  SERVER ACTIONS ou API Route (moins performant)
+3) Mutations depuis API externe : Utiliser les API Route 
+
+
+FORM AVC SHADCN
