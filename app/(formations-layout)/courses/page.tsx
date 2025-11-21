@@ -1,16 +1,9 @@
-
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { userAgent } from "next/server";
-import Counter from "./counter";
 import { headers } from "next/headers";
-import ServerComponent from "@/components/serverrComponent";
-import { Suspense, use } from "react";
 import { prisma } from "@/lib/prisma";
-import { Star } from "lucide-react";
 import { SelectStar } from "@/components/select-star";
 import { revalidatePath } from "next/cache";
-import { Skeleton } from "@/components/ui/skeleton";
 import { UpdateTitleForm } from "./edit-title";
 
 type ReviewsProps = {

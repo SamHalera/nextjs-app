@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 import { useState } from "react";
 
 
-export const SelectStar = (props: { star: number, setNewStar: (star: number) => void }) => {
+export const SelectStar = (props: { star: number, setNewStar?: (star: number) => void }) => {
     const [hoverIndex, setHoverIndex] = useState<number | null>(null)
 
     return (
@@ -21,7 +21,7 @@ export const SelectStar = (props: { star: number, setNewStar: (star: number) => 
                             setHoverIndex(null)
                         }}
                         onClick={() => {
-                            props.setNewStar(i + 1)
+                            props.setNewStar?.(i + 1)
                         }}
                         key={i}>
                         <Star
